@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CoffeeBack/AppDb.sql
+/CoffeeBack/AppDb.sql-shm
+/CoffeeBack/AppDb.sql-wal
