@@ -1,4 +1,4 @@
-﻿namespace _66BitTaskApi.Data.Models
+﻿namespace CoffeeBack.Data.Models
 {
     public class Entity
     {

@@ -1,6 +1,23 @@
-﻿namespace CoffeeBack.GraphQL
+﻿using CoffeeBack.Data.Models;
+using CoffeeBack.Data.Repositories;
+using HotChocolate;
+using HotChocolate.Data;
+using HotChocolate.Types;
+using System.Linq;
+
+namespace CoffeeBack.GraphQL
 {
     public class Queries
     {
+        [UseServiceScope]
+        [UseProjection]
+        public IQueryable<TextLecture> TextLectures([Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository)
+            => textLectureRepository.Raw;
+
+        [UseServiceScope]
+        [UseProjection]
+        public IQueryable<VideoLecture> VideoLectures([Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository)
+            => videoLectureRepository.Raw;
+
     }
 }
