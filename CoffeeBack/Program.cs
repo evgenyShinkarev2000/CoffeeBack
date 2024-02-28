@@ -8,6 +8,7 @@ using _66BitTaskApi.GraphQL;
 using CoffeeBack.Data.Repositories;
 using CoffeeBack.Authorization;
 using CoffeeBack.GraphQL;
+using CoffeeBack.Services;
 
 namespace CoffeeBack
 {
@@ -25,6 +26,7 @@ namespace CoffeeBack
             builder.Services.AddAppData();
             builder.Services.AddAppGraphQL();
             builder.Services.AddAppAuthorization();
+            builder.Services.AddAppServices();
 
             var app = builder.Build();
 

@@ -16,11 +16,20 @@ namespace CoffeeBack.Authorization
             });
             app.Use((context, next) =>
             {
+                var claimsIdentity = new ClaimsIdentity();
+
                 var role = context.Request.Headers["Role"].FirstOrDefault();
                 if (role != null)
                 {
-                    context.User.AddIdentity(new ClaimsIdentity(Enumerable.Repeat(new Claim("Role", role), 1)));
+                    claimsIdentity.AddClaim(new Claim("Role", role));
                 }
+                var idSrting = context.Request.Headers["Id"].FirstOrDefault();
+                if (idSrting != null)
+                {
+                    claimsIdentity.AddClaim(new Claim("Id", idSrting));
+                }
+
+                context.User.AddIdentity(claimsIdentity);
 
                 return next();
             });

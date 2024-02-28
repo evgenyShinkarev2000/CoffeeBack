@@ -7,7 +7,6 @@ namespace CoffeeBack.Authorization
     {
         public static void AddAppAuthorization(this IServiceCollection services)
         {
-            services.AddSingleton<IRoleAccessLevelService, RoleAccessLevelService>();
             services.AddSingleton<IAuthorizationPolicyProvider, RoleAtLeastPolicyProvider>();
             services.AddSingleton<IAuthorizationHandler, RoleAtLeastHandler>();
             services.AddCors();
