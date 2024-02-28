@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace CoffeeBack.Services
 {
+    /// <summary>
+    /// singleton
+    /// </summary>
     public interface IUserService
     {
         /// <summary>

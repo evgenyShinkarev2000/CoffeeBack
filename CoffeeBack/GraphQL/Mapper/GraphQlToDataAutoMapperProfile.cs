@@ -15,6 +15,10 @@ namespace _66BitTaskApi.GraphQL.Mappers
             CreateMap<IIdInput, VideoLecture>();
             CreateMap<AddVideoLectureInput, VideoLecture>();
             CreateMap<UpdateVideoLectureInput, VideoLecture>();
+
+            CreateMap<IIdInput, Person>();
+            CreateMap<AddPersonInput, Person>();
+            CreateMap<UpdatePersonInput, Person>();
         }
     }
 }

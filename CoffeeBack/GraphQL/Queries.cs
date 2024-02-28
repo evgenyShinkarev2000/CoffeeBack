@@ -13,7 +13,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy ="RoleAtLeastIntern")]
+        //[Authorize(Policy ="RoleAtLeastIntern")]
         public IQueryable<TextLecture> TextLectures([Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository)
             => textLectureRepository.Raw;
 
@@ -21,6 +21,11 @@ namespace CoffeeBack.GraphQL
         [UseProjection]
         public IQueryable<VideoLecture> VideoLectures([Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository)
             => videoLectureRepository.Raw;
+
+        [UseServiceScope]
+        [UseProjection]
+        public IQueryable<Person> People([Service(ServiceKind.Resolver)] IPersonRepository personRepository)
+            => personRepository.Raw;
 
     }
 }

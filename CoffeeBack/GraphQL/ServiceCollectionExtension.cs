@@ -20,6 +20,10 @@ namespace _66BitTaskApi.GraphQL
             services.AddSingleton<IUpdateVideoLectureInputToData, UpdateVideoLectureInputToData>();
             services.AddSingleton<IRemoveVideoLectureInputToData, RemoveVideoLectureInputToData>();
 
+            services.AddSingleton<IAddPersonInputToData, AddPersonInputToData>();
+            services.AddSingleton<IUpdatePersonInputToData, UpdatePersonInputToData>();
+            services.AddSingleton<IRemovePersonInputToData, RemovePersonInputToData>();
+
             services.AddGraphQLServer()
                 .AddAuthorization()
                 .AddQueryType<Queries>()

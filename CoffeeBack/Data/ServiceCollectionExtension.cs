@@ -9,6 +9,7 @@ namespace CoffeeBack.Data
         {
             services.AddScoped<ITextLectureRepository, TextLectureRepository>();
             services.AddScoped<IVideoLectureRepository, VideoLectureRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
     }
 }
