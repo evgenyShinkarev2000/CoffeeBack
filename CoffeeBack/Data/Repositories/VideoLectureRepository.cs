@@ -9,6 +9,7 @@ namespace CoffeeBack.Data.Repositories
     {
         public VideoLecture Add(VideoLecture videoLecture);
         public VideoLecture Update(VideoLecture videoLecture);
+        public VideoLecture Remove(VideoLecture videoLecture);
     }
 
     public class VideoLectureRepository : IVideoLectureRepository
@@ -30,6 +31,11 @@ namespace CoffeeBack.Data.Repositories
         public VideoLecture Update(VideoLecture videoLecture)
         {
             return appDbContext.VideoLectures.Update(videoLecture).Entity;
+        }
+
+        public VideoLecture Remove(VideoLecture videoLecture)
+        {
+            return appDbContext.VideoLectures.Remove(videoLecture).Entity;
         }
 
         public async Task Save()

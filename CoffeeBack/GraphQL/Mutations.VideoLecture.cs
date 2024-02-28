@@ -33,7 +33,21 @@ namespace CoffeeBack.GraphQL
             UpdateVideoLectureInput updateVideoLectureInput)
         {
             var videoLecture = updateVideoLectureInputToData.Map(updateVideoLectureInput);
-            videoLectureRepository.Add(videoLecture);
+            videoLectureRepository.Update(videoLecture);
+            await videoLectureRepository.Save();
+
+            return videoLecture;
+        }
+
+        [UseServiceScope]
+        [UseProjection]
+        public async Task<VideoLecture> RemoveVideoLecture(
+            [Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository,
+            [Service] IRemoveVideoLectureInputToData removeVideoLectureInputToData,
+            RemoveVideoLectureInput removeVideoLectureInput)
+        {
+            var videoLecture = removeVideoLectureInputToData.Map(removeVideoLectureInput);
+            videoLectureRepository.Remove(videoLecture);
             await videoLectureRepository.Save();
 
             return videoLecture;

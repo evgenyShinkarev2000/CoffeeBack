@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using CoffeeBack.Data;
 using _66BitTaskApi.GraphQL;
 using CoffeeBack.Data.Repositories;
+using CoffeeBack.Authorization;
+using CoffeeBack.GraphQL;
 
 namespace CoffeeBack
 {
@@ -20,23 +22,15 @@ namespace CoffeeBack
                 options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite") ?? throw new NullReferenceException());
             });
 
-            builder.Services.AddScoped<ITextLectureRepository, TextLectureRepository>();
-            builder.Services.AddScoped<IVideoLectureRepository, VideoLectureRepository>();
-
-            builder.Services.AddCors();
-            builder.Services.AddAppGraphQl();
+            builder.Services.AddAppData();
+            builder.Services.AddAppGraphQL();
+            builder.Services.AddAppAuthorization();
 
             var app = builder.Build();
 
-            app.UseCors(options =>
-            {
-                options.AllowAnyOrigin();
-                options.AllowAnyHeader();
-                options.AllowAnyMethod();
-            });
             app.UseHttpsRedirection();
-            app.UseWebSockets();
-            app.MapGraphQL();
+            app.UseAppAuthorization();
+            app.UseAppGrapgQL();
 
             app.Run();
         }

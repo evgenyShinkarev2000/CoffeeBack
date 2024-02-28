@@ -38,5 +38,19 @@ namespace CoffeeBack.GraphQL
 
             return textLecture;
         }
+
+        [UseServiceScope]
+        [UseProjection]
+        public async Task<TextLecture> RemoveTextLecture(
+            [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
+            [Service] IRemoveTextLectureInputToData removeTextLectureInputToData,
+            RemoveTextLectureInput removeTextLectureInput)
+        {
+            var textLecture = removeTextLectureInputToData.Map(removeTextLectureInput);
+            textLectureRepository.Remove(textLecture);
+            await textLectureRepository.Save();
+
+            return textLecture;
+        }
     }
 }

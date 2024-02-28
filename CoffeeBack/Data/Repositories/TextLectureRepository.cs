@@ -9,6 +9,7 @@ namespace CoffeeBack.Data.Repositories
     {
         public TextLecture Add(TextLecture textLecture);
         public TextLecture Update(TextLecture textLecture);
+        public TextLecture Remove(TextLecture textLecture);
     }
 
     public class TextLectureRepository : ITextLectureRepository
@@ -30,6 +31,11 @@ namespace CoffeeBack.Data.Repositories
         public TextLecture Update(TextLecture textLecture)
         {
             return appDbContext.TextLectures.Update(textLecture).Entity;
+        }
+
+        public TextLecture Remove(TextLecture textLecture)
+        {
+            return appDbContext.TextLectures.Remove(textLecture).Entity;
         }
 
         public async Task Save()

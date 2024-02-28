@@ -1,6 +1,8 @@
-﻿using CoffeeBack.Data.Models;
+﻿using CoffeeBack.Authorization;
+using CoffeeBack.Data.Models;
 using CoffeeBack.Data.Repositories;
 using HotChocolate;
+using HotChocolate.Authorization;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy ="RoleAtLeastIntern")]
         public IQueryable<TextLecture> TextLectures([Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository)
             => textLectureRepository.Raw;
 

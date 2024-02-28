@@ -8,11 +8,11 @@ namespace _66BitTaskApi.GraphQL.Mappers
     {
         public GraphQlToDataAutoMapperProfile()
         {
-            CreateMap<IdInput, TextLecture>();
+            CreateMap<IIdInput, TextLecture>();
             CreateMap<AddTextLectureInput, TextLecture>();
             CreateMap<UpdateTextLectureInput, TextLecture>();
 
-            CreateMap<IdInput, VideoLecture>();
+            CreateMap<IIdInput, VideoLecture>();
             CreateMap<AddVideoLectureInput, VideoLecture>();
             CreateMap<UpdateVideoLectureInput, VideoLecture>();
         }

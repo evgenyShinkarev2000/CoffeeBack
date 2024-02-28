@@ -7,19 +7,21 @@ namespace _66BitTaskApi.GraphQL
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddAppGraphQl(this IServiceCollection services)
+        public static void AddAppGraphQL(this IServiceCollection services)
         {
 
             services.AddAutoMapper(typeof(GraphQlToDataAutoMapperProfile));
 
             services.AddSingleton<IAddTextLectureInputToData, AddTextLectureInputToData>();
             services.AddSingleton<IUpdateTextLectureInputToData, UpdateTextLectureInputToData>();
+            services.AddSingleton<IRemoveTextLectureInputToData, RemoveTextLectureInputToData>();
 
             services.AddSingleton<IAddVideoLectureInputToData, AddVideoLectureInputToData>();
             services.AddSingleton<IUpdateVideoLectureInputToData, UpdateVideoLectureInputToData>();
+            services.AddSingleton<IRemoveVideoLectureInputToData, RemoveVideoLectureInputToData>();
 
             services.AddGraphQLServer()
-                .AddInMemorySubscriptions()
+                .AddAuthorization()
                 .AddQueryType<Queries>()
                 .AddMutationType<Mutations>()
                 .AddProjections();
