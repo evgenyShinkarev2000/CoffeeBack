@@ -1,7 +1,9 @@
 ﻿using CoffeeBack.Authorization;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoffeeBack.Services
 {
@@ -10,13 +12,14 @@ namespace CoffeeBack.Services
     /// </summary>
     public interface IUserService
     {
+        Task<IEnumerable<string>> GetKnownRoles();
         /// <summary>
         /// 
         /// </summary>
         /// <returns>
         /// 0 for unknown role
         /// </returns>
-        int RoleToAccessLevel(string role);
+        Task<int> RoleToAccessLevel(string role);
     }
 
     public class UserService : IUserService
@@ -31,14 +34,19 @@ namespace CoffeeBack.Services
             .ToDictionary(knownRoleItem => knownRoleItem.Name, knownRoleItem => knownRoleItem.AccessLevel);
         }
 
-        public int RoleToAccessLevel(string role)
+        public Task<IEnumerable<string>> GetKnownRoles()
+        {
+            return Task.FromResult(roleNameToAccessLevel.Keys.AsEnumerable());
+        }
+
+        public Task<int> RoleToAccessLevel(string role)
         {
             if (role != null && roleNameToAccessLevel.TryGetValue(role, out var accessLevel))
             {
-                return accessLevel;
+                return Task.FromResult(accessLevel);
             }
 
-            return 0;
+            return Task.FromResult(0);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using CoffeeBack.Authorization;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using System.Linq;
 
 namespace CoffeeBack.Services
@@ -34,7 +32,7 @@ namespace CoffeeBack.Services
 
         public int GetAccessLevel()
         {
-            return userService.RoleToAccessLevel(Role);
+            return userService.RoleToAccessLevel(Role).Result;
         }
     }
 }

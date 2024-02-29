@@ -14,18 +14,20 @@ namespace CoffeeBack.Authorization
             this.userService = userService;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleAtLeastRequirment requirement)
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleAtLeastRequirment requirement)
         {
             var userRole = context.User.Claims.FirstOrDefault(claim => claim.Type == "Role")?.Value;
             if (userRole != null)
             {
-                if (userService.RoleToAccessLevel(userRole) >= userService.RoleToAccessLevel(requirement.Role))
+                var currentUserAccessLevel = userService.RoleToAccessLevel(userRole);
+                var requiredAccessLevel = userService.RoleToAccessLevel(requirement.Role);
+                await Task.WhenAll(currentUserAccessLevel, requiredAccessLevel);
+
+                if (currentUserAccessLevel.Result >= requiredAccessLevel.Result)
                 {
                     context.Succeed(requirement);
                 }
             }
-
-            return Task.CompletedTask;
         }
     }
 }
