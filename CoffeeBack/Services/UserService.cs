@@ -1,8 +1,10 @@
 ﻿using CoffeeBack.Authorization;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace CoffeeBack.Services
@@ -24,14 +26,24 @@ namespace CoffeeBack.Services
 
     public class UserService : IUserService
     {
-        private readonly Dictionary<string, int> roleNameToAccessLevel;
-        public UserService()
+        private readonly Dictionary<string, int> roleNameToAccessLevel = new();
+        public UserService(ILogger<UserService> logger)
         {
-            roleNameToAccessLevel = typeof(KnownRole).GetProperties()
-            .Select(propInfo => propInfo.GetValue(null))
-            .Where(mayBeKnowRoleItem => mayBeKnowRoleItem is KnownRoleItem)
-            .Cast<KnownRoleItem>()
-            .ToDictionary(knownRoleItem => knownRoleItem.Name, knownRoleItem => knownRoleItem.AccessLevel);
+            var knownRoleAccessLevelPropertyNameToAccessLevel = typeof(KnowRoleAccessLevel)
+                .GetFields(BindingFlags.Static | BindingFlags.Public)
+                .ToDictionary(propInfo => propInfo.Name, propInfo => propInfo.GetValue(null));
+            foreach (var knownRolePropInfo in typeof(KnownRoleName).GetFields(BindingFlags.Static | BindingFlags.Public))
+            {
+                if (knownRoleAccessLevelPropertyNameToAccessLevel.TryGetValue(knownRolePropInfo.Name, out var accessLevel))
+                {
+                    roleNameToAccessLevel.Add((string)knownRolePropInfo.GetValue(null), (int)accessLevel);
+                }
+                else
+                {
+                    logger.LogWarning($"Found role {knownRolePropInfo.Name} without access level");
+                    roleNameToAccessLevel.Add((string)knownRolePropInfo.GetValue(null), 0);
+                }
+            }
         }
 
         public Task<IEnumerable<string>> GetKnownRoles()

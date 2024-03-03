@@ -1,14 +1,22 @@
 ﻿namespace CoffeeBack.Authorization
 {
 
-    public record struct KnownRoleItem(string Name, int AccessLevel);
 
-    public static class KnownRole
+    public static class KnownRoleName
     {
-        public static KnownRoleItem Intern { get; } = new KnownRoleItem("Intern", 100);
-        public static KnownRoleItem Barista { get; } = new KnownRoleItem("Barista", 200);
-        public static KnownRoleItem Manager { get; } = new KnownRoleItem("Manager", 300);
-        public static KnownRoleItem Administering { get; } = new KnownRoleItem("Administering", 400);
-        public static KnownRoleItem HRManager { get; } = new KnownRoleItem("HRManager", 500);
+        public const string Intern = "Intern";
+        public const string Barista = "Barista";
+        public const string Manager = "Manager";
+        public const string Administering = "Administering";
+        public const string HRManager = "HRManager";
+    }
+
+    public static class KnowRoleAccessLevel
+    {
+        public const int Intern = 100;
+        public const int Barista = 200;
+        public const int Manager = 300;
+        public const int Administering = 400;
+        public const int HRManager = 500;
     }
 }

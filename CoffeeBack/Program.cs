@@ -23,6 +23,7 @@ namespace CoffeeBack
                 options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite") ?? throw new NullReferenceException());
             });
 
+            builder.Services.AddLogging();
             builder.Services.AddAppData();
             builder.Services.AddAppGraphQL();
             builder.Services.AddAppAuthorization();

@@ -2,11 +2,11 @@
 
 namespace CoffeeBack.Data.Repositories
 {
-    public interface IRawQueryable<T>
+    public interface IUntrackedQueryable<T>
     {
         /// <summary>
         /// NoTracking
         /// </summary>
-        public IQueryable<T> Raw { get; }
+        IQueryable<T> Untracked { get; }
     }
 }

@@ -1,11 +1,10 @@
-﻿using _66BitTaskApi.GraphQL.Mappers;
-using AutoMapper;
+﻿using AutoMapper;
 using CoffeeBack.Data.Models;
 using CoffeeBack.GraphQL.Schema;
 
 namespace CoffeeBack.GraphQL.Mapper
 {
-    public interface IAddPersonInputToData: IInputToDataMapper<AddPersonInput, Person>;
+    public interface IAddPersonInputToData : IInputToDataMapper<AddPersonInput, Person>;
 
     public class AddPersonInputToData : IAddPersonInputToData
     {

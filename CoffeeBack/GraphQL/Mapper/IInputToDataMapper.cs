@@ -1,4 +1,4 @@
-﻿namespace _66BitTaskApi.GraphQL.Mappers
+﻿namespace CoffeeBack.GraphQL.Mapper
 {
     public interface IInputToDataMapper<Tin, Tout>
     {

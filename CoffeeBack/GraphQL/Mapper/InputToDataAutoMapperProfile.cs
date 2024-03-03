@@ -2,11 +2,11 @@
 using CoffeeBack.Data.Models;
 using CoffeeBack.GraphQL.Schema;
 
-namespace _66BitTaskApi.GraphQL.Mappers
+namespace CoffeeBack.GraphQL.Mapper
 {
-    public class GraphQlToDataAutoMapperProfile : Profile
+    public class InputToDataAutoMapperProfile : Profile
     {
-        public GraphQlToDataAutoMapperProfile()
+        public InputToDataAutoMapperProfile()
         {
             CreateMap<IIdInput, TextLecture>();
             CreateMap<AddTextLectureInput, TextLecture>();

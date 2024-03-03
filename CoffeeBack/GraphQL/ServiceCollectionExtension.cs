@@ -1,6 +1,6 @@
-﻿using _66BitTaskApi.GraphQL.Mappers;
-using CoffeeBack.GraphQL;
+﻿using CoffeeBack.GraphQL;
 using CoffeeBack.GraphQL.Mapper;
+using CoffeeBack.GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace _66BitTaskApi.GraphQL
@@ -10,7 +10,10 @@ namespace _66BitTaskApi.GraphQL
         public static void AddAppGraphQL(this IServiceCollection services)
         {
 
-            services.AddAutoMapper(typeof(GraphQlToDataAutoMapperProfile));
+            services.AddAutoMapper(options =>
+            {
+                options.AddProfile<InputToDataAutoMapperProfile>();
+            });
 
             services.AddSingleton<IAddTextLectureInputToData, AddTextLectureInputToData>();
             services.AddSingleton<IUpdateTextLectureInputToData, UpdateTextLectureInputToData>();
@@ -25,10 +28,13 @@ namespace _66BitTaskApi.GraphQL
             services.AddSingleton<IRemovePersonInputToData, RemovePersonInputToData>();
 
             services.AddGraphQLServer()
+                .AddType<VideoLectureType>()
+                .AddType<TextLectureType>()
                 .AddAuthorization()
                 .AddQueryType<Queries>()
                 .AddMutationType<Mutations>()
-                .AddProjections();
+                .AddProjections()
+                .AddFiltering();
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using _66BitTaskApi.GraphQL.Mappers;
-using AutoMapper;
+﻿using AutoMapper;
 using CoffeeBack.Data.Models;
 using CoffeeBack.GraphQL.Schema;
 
 namespace CoffeeBack.GraphQL.Mapper
 {
-    public interface IRemoveVideoLectureInputToData: IInputToDataMapper<RemoveVideoLectureInput, VideoLecture>;
+    public interface IRemoveVideoLectureInputToData : IInputToDataMapper<RemoveVideoLectureInput, VideoLecture>;
 
-    public class RemoveVideoLectureInputToData: IRemoveVideoLectureInputToData
+    public class RemoveVideoLectureInputToData : IRemoveVideoLectureInputToData
     {
         private readonly IMapper mapper;
 

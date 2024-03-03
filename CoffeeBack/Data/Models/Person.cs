@@ -2,7 +2,7 @@
 
 namespace CoffeeBack.Data.Models
 {
-    public class Person : Entity
+    public class Person : Entity<Person>
     {
         public string Name { get; set; }
         public string Surname { get; set; }

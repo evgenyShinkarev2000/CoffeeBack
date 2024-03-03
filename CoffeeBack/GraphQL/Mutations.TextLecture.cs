@@ -1,11 +1,13 @@
 ﻿using CoffeeBack.Data.Repositories;
-using CoffeeBack.GraphQL.Mapper;
 using CoffeeBack.GraphQL.Schema;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using HotChocolate;
 using System.Threading.Tasks;
 using CoffeeBack.Data.Models;
+using CoffeeBack.Authorization;
+using HotChocolate.Authorization;
+using CoffeeBack.GraphQL.Mapper;
 
 namespace CoffeeBack.GraphQL
 {
@@ -13,6 +15,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
         public async Task<TextLecture> AddTextLecture(
             [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
             [Service] IAddTextLectureInputToData addTextLectureInputToData,
@@ -27,6 +30,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
         public async Task<TextLecture> UpdateTextLecture(
             [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
             [Service] IUpdateTextLectureInputToData updateTextLectureInputToData,
@@ -41,6 +45,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
         public async Task<TextLecture> RemoveTextLecture(
             [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
             [Service] IRemoveTextLectureInputToData removeTextLectureInputToData,

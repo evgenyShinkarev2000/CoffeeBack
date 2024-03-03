@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeBack.Data.Repositories
 {
-    public interface ITextLectureRepository: IRawQueryable<TextLecture>, ISave
+    public interface ITextLectureRepository: IUntrackedQueryable<TextLecture>, ITrackedQueryable<TextLecture>, ISave
     {
         public TextLecture Add(TextLecture textLecture);
         public TextLecture Update(TextLecture textLecture);
@@ -14,7 +14,9 @@ namespace CoffeeBack.Data.Repositories
 
     public class TextLectureRepository : ITextLectureRepository
     {
-        public IQueryable<TextLecture> Raw => appDbContext.TextLectures.AsNoTracking();
+        public IQueryable<TextLecture> Untracked => appDbContext.TextLectures.AsNoTracking();
+
+        public IQueryable<TextLecture> Tracked => appDbContext.TextLectures;
 
         private readonly AppDbContext appDbContext;
 

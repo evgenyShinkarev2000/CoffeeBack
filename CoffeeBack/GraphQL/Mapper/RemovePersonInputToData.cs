@@ -1,5 +1,4 @@
-﻿using _66BitTaskApi.GraphQL.Mappers;
-using AutoMapper;
+﻿using AutoMapper;
 using CoffeeBack.Data.Models;
 using CoffeeBack.GraphQL.Schema;
 

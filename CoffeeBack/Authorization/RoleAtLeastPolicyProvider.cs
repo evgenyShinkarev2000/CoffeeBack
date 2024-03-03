@@ -6,7 +6,6 @@ namespace CoffeeBack.Authorization
 {
     public class RoleAtLeastPolicyProvider : IAuthorizationPolicyProvider
     {
-        public const string PolicyPrefix = "RoleAtLeast";
         private readonly DefaultAuthorizationPolicyProvider fallbackPolicyProvider;
 
         public RoleAtLeastPolicyProvider(IOptions<AuthorizationOptions> options)
@@ -20,10 +19,10 @@ namespace CoffeeBack.Authorization
 
         public Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
         {
-            if (policyName.StartsWith(PolicyPrefix))
+            if (policyName.StartsWith(KnownAuthorizePolicy.RoleAtLeast))
             {
                 var policy = new AuthorizationPolicyBuilder();
-                policy.AddRequirements(new RoleAtLeastRequirment(policyName.Substring(PolicyPrefix.Length)));
+                policy.AddRequirements(new RoleAtLeastRequirment(policyName.Substring(KnownAuthorizePolicy.RoleAtLeast.Length)));
 
                 return Task.FromResult(policy.Build());
             }

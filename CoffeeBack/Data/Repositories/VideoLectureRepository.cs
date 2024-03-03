@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeBack.Data.Repositories
 {
-    public interface IVideoLectureRepository : IRawQueryable<VideoLecture>, ISave
+    public interface IVideoLectureRepository : IUntrackedQueryable<VideoLecture>, ITrackedQueryable<VideoLecture>, ISave
     {
         public VideoLecture Add(VideoLecture videoLecture);
         public VideoLecture Update(VideoLecture videoLecture);
@@ -14,7 +14,9 @@ namespace CoffeeBack.Data.Repositories
 
     public class VideoLectureRepository : IVideoLectureRepository
     {
-        public IQueryable<VideoLecture> Raw => appDbContext.VideoLectures.AsNoTracking();
+        public IQueryable<VideoLecture> Untracked => appDbContext.VideoLectures.AsNoTracking();
+
+        public IQueryable<VideoLecture> Tracked => appDbContext.VideoLectures;
 
         private readonly AppDbContext appDbContext;
 

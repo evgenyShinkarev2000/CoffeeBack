@@ -1,11 +1,13 @@
 ﻿using CoffeeBack.Data.Models;
 using CoffeeBack.Data.Repositories;
-using CoffeeBack.GraphQL.Mapper;
 using CoffeeBack.GraphQL.Schema;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using HotChocolate;
 using System.Threading.Tasks;
+using CoffeeBack.Authorization;
+using HotChocolate.Authorization;
+using CoffeeBack.GraphQL.Mapper;
 
 namespace CoffeeBack.GraphQL
 {
@@ -13,6 +15,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
         public async Task<Person> AddPerson(
             [Service(ServiceKind.Resolver)] IPersonRepository personRepository,
             [Service] IAddPersonInputToData addPersonInputToData,
@@ -27,6 +30,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
         public async Task<Person> UpdatePerson(
             [Service(ServiceKind.Resolver)] IPersonRepository personRepository,
             [Service] IUpdatePersonInputToData updatePersonInputToData,
@@ -41,6 +45,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
+        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
         public async Task<Person> RemovePerson(
             [Service(ServiceKind.Resolver)] IPersonRepository personRepository,
             [Service] IRemovePersonInputToData removePersonInputToData,

@@ -2,7 +2,7 @@
 
 namespace CoffeeBack.Data.Models
 {
-    public class VideoLecture : Entity
+    public class VideoLecture : Entity<VideoLecture>
     {
         public string Name { get; set; }
         public string Source { get; set; }

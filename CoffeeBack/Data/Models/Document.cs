@@ -2,7 +2,7 @@
 
 namespace CoffeeBack.Data.Models
 {
-    public class Document : Entity
+    public class Document : Entity<Document>
     {
         public DocumentKind DocumentKind { get; set; }
         public string ExternalId { get; set; }

@@ -27,6 +27,7 @@ namespace CoffeeBack.Services
 
             var claims = httpContextAccessor.HttpContext.User.Claims;
             int.TryParse(claims.FirstOrDefault(c => c.Type == "Id")?.Value, out var Id);
+            this.Id = Id;
             Role = claims.FirstOrDefault(c => c.Type == "Role")?.Value;
         }
 
