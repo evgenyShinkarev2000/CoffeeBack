@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeBack.Data.Repositories
 {
-    public interface IPersonRepository: IUntrackedQueryable<Person>, ISave
+    public interface IPersonRepository: IUntrackedQueryable<Person>, ITrackedQueryable<Person>, ISave
     {
         Person Add(Person person);
         Person Remove(Person person);
@@ -16,6 +16,9 @@ namespace CoffeeBack.Data.Repositories
     {
         private readonly AppDbContext appDbContext;
         public IQueryable<Person> Untracked => appDbContext.People.AsNoTracking();
+
+        public IQueryable<Person> Tracked => appDbContext.People;
+
         public PersonRepository(AppDbContext appDbContext)
         {
             this.appDbContext = appDbContext;

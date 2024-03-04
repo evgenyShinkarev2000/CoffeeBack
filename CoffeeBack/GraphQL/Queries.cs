@@ -17,13 +17,13 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
-        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
         public IQueryable<TextLecture> TextLectures([Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository)
             => textLectureRepository.Untracked;
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
         public IQueryable<VideoLecture> VideoLectures([Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository)
             => videoLectureRepository.Untracked;
 
@@ -53,5 +53,9 @@ namespace CoffeeBack.GraphQL
         public async Task<IEnumerable<string>> KnownRoles([Service] IUserService userService)
             => await userService.GetKnownRoles();
 
+        [UseServiceScope]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
+        public async Task<IEnumerable<PersonProgress>> GetAllowedPeopleProgress([Service(ServiceKind.Resolver)] IProgressService progressService)
+            => await progressService.GetAllowedPeopleProgress();
     }
 }

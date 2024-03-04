@@ -17,6 +17,7 @@ namespace CoffeeBack.Services
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IVideoLectureService, VideoLectureService>();
             services.AddScoped<ITextLectureService, TextLectureService>();
+            services.AddScoped<IProgressService, ProgressService>();
         }
     }
 }

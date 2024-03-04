@@ -33,7 +33,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasIndex("DocumentKindId");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("CoffeeBack.Data.Models.DocumentKind", b =>
@@ -47,7 +47,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DocumentKinds");
+                    b.ToTable("DocumentKinds", (string)null);
                 });
 
             modelBuilder.Entity("CoffeeBack.Data.Models.Person", b =>
@@ -67,7 +67,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("People", (string)null);
                 });
 
             modelBuilder.Entity("CoffeeBack.Data.Models.TextLecture", b =>
@@ -84,7 +84,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TextLectures");
+                    b.ToTable("TextLectures", (string)null);
                 });
 
             modelBuilder.Entity("CoffeeBack.Data.Models.VideoLecture", b =>
@@ -101,7 +101,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VideoLectures");
+                    b.ToTable("VideoLectures", (string)null);
                 });
 
             modelBuilder.Entity("DocumentPerson", b =>
@@ -116,7 +116,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasIndex("PeopleId");
 
-                    b.ToTable("DocumentPerson");
+                    b.ToTable("DocumentPerson", (string)null);
                 });
 
             modelBuilder.Entity("PersonTextLecture", b =>
@@ -131,7 +131,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasIndex("LearnedPeopleId");
 
-                    b.ToTable("PersonTextLecture");
+                    b.ToTable("PersonTextLecture", (string)null);
                 });
 
             modelBuilder.Entity("PersonVideoLecture", b =>
@@ -146,7 +146,7 @@ namespace CoffeeBack.Migrations
 
                     b.HasIndex("LearnedPeopleId");
 
-                    b.ToTable("PersonVideoLecture");
+                    b.ToTable("PersonVideoLecture", (string)null);
                 });
 
             modelBuilder.Entity("CoffeeBack.Data.Models.Document", b =>

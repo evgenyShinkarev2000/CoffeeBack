@@ -8,6 +8,8 @@ namespace CoffeeBack.GraphQL.Types
     {
         protected override void Configure(IObjectTypeDescriptor<TextLecture> descriptor)
         {
+            descriptor.Field(f => f.LearnedPeople).Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager);
+
             base.Configure(descriptor);
         }
     }
