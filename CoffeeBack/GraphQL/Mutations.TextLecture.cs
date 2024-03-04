@@ -61,17 +61,16 @@ namespace CoffeeBack.GraphQL
         }
 
         [UseServiceScope]
-        [UseProjection]
         [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
         public async Task<TextLectureWithIsRead> SetTextLectureRead(
             [Service(ServiceKind.Resolver)] ITextLectureService textLectureService,
             [Service] ICurrentUserService currentUserService,
             SetTextLectureReadInput setTextLectureReadInput)
         {
-            return await textLectureService.SetVideoLectureWatched(
+            return await textLectureService.SetTextLectureRead(
                 setTextLectureReadInput.TextLecture.Id,
                 currentUserService.Id,
-                setTextLectureReadInput.IsWatched);
+                setTextLectureReadInput.IsRead);
         }
     }
 }

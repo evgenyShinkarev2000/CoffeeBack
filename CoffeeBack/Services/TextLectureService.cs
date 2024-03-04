@@ -11,7 +11,7 @@ namespace CoffeeBack.Services
     public interface ITextLectureService
     {
         Task<IEnumerable<TextLectureWithIsRead>> GetTextLecturesWithIsReadByPerson(int personId);
-        Task<TextLectureWithIsRead> SetVideoLectureWatched(int textLectureId, int personId, bool isWatched);
+        Task<TextLectureWithIsRead> SetTextLectureRead(int textLectureId, int personId, bool isRead);
     }
 
     public class TextLectureService : ITextLectureService
@@ -27,7 +27,7 @@ namespace CoffeeBack.Services
             this.personRepository = personRepository;
         }
 
-        public async Task<TextLectureWithIsRead> SetVideoLectureWatched(int textLectureId, int personId, bool isWatched)
+        public async Task<TextLectureWithIsRead> SetTextLectureRead(int textLectureId, int personId, bool isRead)
         {
             var textLecture = await textLectureRepository.Tracked
                 .Include(tl => tl.LearnedPeople)
@@ -43,7 +43,7 @@ namespace CoffeeBack.Services
             {
                 throw new Exception("Can't find user");
             }
-            if (isWatched)
+            if (isRead)
             {
                 textLecture.LearnedPeople.Add(currentUser);
             }
@@ -55,7 +55,7 @@ namespace CoffeeBack.Services
             textLectureRepository.Update(textLecture);
             await textLectureRepository.Save();
 
-            return new TextLectureWithIsRead(textLecture.Id, textLecture.Name, textLecture.Content, isWatched);
+            return new TextLectureWithIsRead(textLecture.Id, textLecture.Name, textLecture.Content, isRead);
         }
 
         public async Task<IEnumerable<TextLectureWithIsRead>> GetTextLecturesWithIsReadByPerson(int personId)
