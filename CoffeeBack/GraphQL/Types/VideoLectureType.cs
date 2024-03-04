@@ -8,8 +8,6 @@ namespace CoffeeBack.GraphQL.Types
     {
         protected override void Configure(IObjectTypeDescriptor<VideoLecture> descriptor)
         {
-            descriptor.Field(f => f.LearnedPeople).Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager);
-
             base.Configure(descriptor);
         }
     }

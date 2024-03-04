@@ -17,7 +17,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<VideoLecture> AddVideoLecture(
             [Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository,
             [Service] IAddVideoLectureInputToData addVideoLectureInputToData,
@@ -32,7 +32,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<VideoLecture> UpdateVideoLecture(
             [Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository,
             [Service] IUpdateVideoLectureInputToData updateVideoLectureInputToData,
@@ -47,7 +47,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<VideoLecture> RemoveVideoLecture(
             [Service(ServiceKind.Resolver)] IVideoLectureRepository videoLectureRepository,
             [Service] IRemoveVideoLectureInputToData removeVideoLectureInputToData,
@@ -61,30 +61,28 @@ namespace CoffeeBack.GraphQL
         }
 
         [UseServiceScope]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
         public async Task<VideoLectureWithIsWatched> SetVideoLectureWatched(
             [Service(ServiceKind.Resolver)] IVideoLectureService videoLectureService,
             [Service] ICurrentUserService currentUserService,
             SetVideoLectureWatchedInput setVideoLectureWatchedInput)
         {
-            return await videoLectureService.SetVideoLectureWatched(new SetVideoLectureWatchedModel(
+            return await videoLectureService.SetVideoLectureWatched(
                 setVideoLectureWatchedInput.VideoLecture.Id,
                 currentUserService.Id,
-                setVideoLectureWatchedInput.IsWatched
-                ));
+                setVideoLectureWatchedInput.IsWatched);
         }
 
         [UseServiceScope]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<VideoLectureWithIsWatched> SetVideoLectureWatchedAdmin(
             [Service(ServiceKind.Resolver)] IVideoLectureService videoLectureService,
             SetVideoLectureWatchedAdminInput setVideoLectureWatchedAdminInput)
         {
-            return await videoLectureService.SetVideoLectureWatched(new SetVideoLectureWatchedModel(
+            return await videoLectureService.SetVideoLectureWatched(
                 setVideoLectureWatchedAdminInput.VideoLecture.Id,
                 setVideoLectureWatchedAdminInput.Person.Id,
-                setVideoLectureWatchedAdminInput.IsWatched
-                ));
+                setVideoLectureWatchedAdminInput.IsWatched);
         }
     }
 }

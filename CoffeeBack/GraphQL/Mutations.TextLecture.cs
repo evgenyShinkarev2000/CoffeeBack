@@ -8,6 +8,8 @@ using CoffeeBack.Data.Models;
 using CoffeeBack.Authorization;
 using HotChocolate.Authorization;
 using CoffeeBack.GraphQL.Mapper;
+using CoffeeBack.Services.Models;
+using CoffeeBack.Services;
 
 namespace CoffeeBack.GraphQL
 {
@@ -15,7 +17,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<TextLecture> AddTextLecture(
             [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
             [Service] IAddTextLectureInputToData addTextLectureInputToData,
@@ -30,7 +32,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<TextLecture> UpdateTextLecture(
             [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
             [Service] IUpdateTextLectureInputToData updateTextLectureInputToData,
@@ -45,7 +47,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<TextLecture> RemoveTextLecture(
             [Service(ServiceKind.Resolver)] ITextLectureRepository textLectureRepository,
             [Service] IRemoveTextLectureInputToData removeTextLectureInputToData,
@@ -56,6 +58,20 @@ namespace CoffeeBack.GraphQL
             await textLectureRepository.Save();
 
             return textLecture;
+        }
+
+        [UseServiceScope]
+        [UseProjection]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Intern)]
+        public async Task<TextLectureWithIsRead> SetTextLectureRead(
+            [Service(ServiceKind.Resolver)] ITextLectureService textLectureService,
+            [Service] ICurrentUserService currentUserService,
+            SetTextLectureReadInput setTextLectureReadInput)
+        {
+            return await textLectureService.SetVideoLectureWatched(
+                setTextLectureReadInput.TextLecture.Id,
+                currentUserService.Id,
+                setTextLectureReadInput.IsWatched);
         }
     }
 }

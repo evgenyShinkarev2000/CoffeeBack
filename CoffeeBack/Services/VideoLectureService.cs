@@ -11,7 +11,7 @@ namespace CoffeeBack.Services
 {
     public interface IVideoLectureService
     {
-        Task<VideoLectureWithIsWatched> SetVideoLectureWatched(SetVideoLectureWatchedModel setVideoWatchedModel);
+        Task<VideoLectureWithIsWatched> SetVideoLectureWatched(int videoLectureId, int personId, bool isWatched);
         Task<IEnumerable<VideoLectureWithIsWatched>> GetVideoLecturesWithIsWatchedByPerson(int personId);
     }
 
@@ -28,23 +28,23 @@ namespace CoffeeBack.Services
             this.personRepository = personRepository;
         }
 
-        public async Task<VideoLectureWithIsWatched> SetVideoLectureWatched(SetVideoLectureWatchedModel setVideoWatchedModel)
+        public async Task<VideoLectureWithIsWatched> SetVideoLectureWatched(int videoLectureId, int personId, bool isWatched)
         {
             var videoLecture = await videoLectureRepository.Tracked
                 .Include(vl => vl.LearnedPeople)
-                .FirstOrDefaultAsync(vl => vl.Id == setVideoWatchedModel.VideoLectureId);
+                .FirstOrDefaultAsync(vl => vl.Id == videoLectureId);
             if (videoLecture == null)
             {
                 throw new Exception("Can't find video lecture");
             }
 
-            var currentUser = await personRepository.Untracked.FirstOrDefaultAsync(p => p.Id == setVideoWatchedModel.PersonId);
+            var currentUser = await personRepository.Untracked.FirstOrDefaultAsync(p => p.Id == personId);
 
             if (currentUser == null)
             {
                 throw new Exception("Can't find user");
             }
-            if (setVideoWatchedModel.IsWatched)
+            if (isWatched)
             {
                 videoLecture.LearnedPeople.Add(currentUser);
             }
@@ -56,7 +56,7 @@ namespace CoffeeBack.Services
             videoLectureRepository.Update(videoLecture);
             await videoLectureRepository.Save();
 
-            return new VideoLectureWithIsWatched(videoLecture.Id, videoLecture.Name, videoLecture.Source, setVideoWatchedModel.IsWatched);
+            return new VideoLectureWithIsWatched(videoLecture.Id, videoLecture.Name, videoLecture.Source, isWatched);
         }
 
         public async Task<IEnumerable<VideoLectureWithIsWatched>> GetVideoLecturesWithIsWatchedByPerson(int personId)

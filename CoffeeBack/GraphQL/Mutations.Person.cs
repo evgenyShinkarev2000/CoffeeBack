@@ -15,7 +15,7 @@ namespace CoffeeBack.GraphQL
     {
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<Person> AddPerson(
             [Service(ServiceKind.Resolver)] IPersonRepository personRepository,
             [Service] IAddPersonInputToData addPersonInputToData,
@@ -30,7 +30,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<Person> UpdatePerson(
             [Service(ServiceKind.Resolver)] IPersonRepository personRepository,
             [Service] IUpdatePersonInputToData updatePersonInputToData,
@@ -45,7 +45,7 @@ namespace CoffeeBack.GraphQL
 
         [UseServiceScope]
         [UseProjection]
-        [Authorize(Policy = KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.Manager)]
+        [Authorize(KnownAuthorizePolicy.RoleAtLeast + KnownRoleName.HRManager)]
         public async Task<Person> RemovePerson(
             [Service(ServiceKind.Resolver)] IPersonRepository personRepository,
             [Service] IRemovePersonInputToData removePersonInputToData,

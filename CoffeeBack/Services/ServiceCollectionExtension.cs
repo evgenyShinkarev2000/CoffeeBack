@@ -12,12 +12,11 @@ namespace CoffeeBack.Services
                 options.AddProfile<DataToServiceAutoMapperProfile>();
             });
 
-            services.AddSingleton<IVideoLectureToWatched, VideoLectureToWatched>();
-
             services.AddHttpContextAccessor();
             services.AddSingleton<IUserService, UserService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IVideoLectureService, VideoLectureService>();
+            services.AddScoped<ITextLectureService, TextLectureService>();
         }
     }
 }
