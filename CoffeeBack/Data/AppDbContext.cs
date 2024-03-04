@@ -14,6 +14,10 @@ namespace CoffeeBack.Data
         public DbSet<DocumentKind> DocumentKinds { get; set; }
         [Obsolete]
         public DbSet<PersonRole> PersonRoleMany { get; set; }
+        public DbSet<SelectAnswerExercise> SelectAnswerExercises { get; set; }
+        public DbSet<SelectAnswerExersiseAnswer> SelectAnswerExersiseAnswers { get; set; }
+
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
