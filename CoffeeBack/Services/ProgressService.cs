@@ -37,7 +37,7 @@ namespace CoffeeBack.Services
             {
                 return Enumerable.Empty<PersonProgress>();
             }
-            if (currentPersonAccessLevel == 100)
+            if (currentPersonAccessLevel == 100 || currentPersonAccessLevel == 200)
             {
                 var person = await personRepository.Untracked
                 .Include(p => p.CompleatedTextLectures)
